@@ -7,13 +7,13 @@ const LABELS: Record<UserRole, string> = {
 }
 
 const CLASSES: Record<UserRole, string> = {
-  admin: 'bg-brand-soft text-[#2446b5]',
-  user: 'bg-secondary text-[#52525c] border border-border',
+  admin: 'bg-brand-soft text-accent-foreground',
+  user: 'bg-secondary text-muted-foreground border border-border',
 }
 
 const DOTS: Record<UserRole, string> = {
   admin: 'bg-primary',
-  user: 'bg-[#a2a2ad]',
+  user: 'bg-muted-foreground/60',
 }
 
 interface RoleBadgeProps {

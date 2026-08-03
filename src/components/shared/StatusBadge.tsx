@@ -8,14 +8,14 @@ interface StatusBadgeProps {
 }
 
 const CLASSES: Record<OrderStatus, string> = {
-  open: 'bg-secondary text-[#52525c] border border-border',
+  open: 'bg-secondary text-muted-foreground border border-border',
   allocated: 'bg-warning-soft text-warning',
-  paid: 'bg-brand-soft text-[#2446b5]',
+  paid: 'bg-brand-soft text-accent-foreground',
   completed: 'bg-positive-soft text-positive',
 }
 
 const DOTS: Record<OrderStatus, string> = {
-  open: 'bg-[#a2a2ad]',
+  open: 'bg-muted-foreground/60',
   allocated: 'bg-warning-dot',
   paid: 'bg-primary',
   completed: 'bg-positive-dot',

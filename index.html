@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2a58f0" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('kapital-theme')
+          var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+          document.documentElement.classList.toggle('dark', dark)
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.content = dark ? '#0f1115' : '#2a58f0'
+        } catch (e) {}
+      })()
+    </script>
     <title>Kapital OMS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -18,8 +18,8 @@ import { formatDate } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
 const ROLE_BADGE_CLASSES = {
-  admin: 'bg-brand-soft text-[#2446b5]',
-  user: 'bg-secondary text-[#52525c] border border-border',
+  admin: 'bg-brand-soft text-accent-foreground',
+  user: 'bg-secondary text-muted-foreground border border-border',
 } as const
 
 export function ProfilePage() {

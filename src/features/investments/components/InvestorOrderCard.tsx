@@ -19,7 +19,7 @@ export function InvestorOrderCard({ investment, order }: InvestorOrderCardProps)
     <div className="flex flex-col gap-3.5 rounded-[15px] border border-border bg-card p-[18px_18px_15px] shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2.5">
-          <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-[#2446b5]">
+          <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-accent-foreground">
             <PackageIcon className="size-[17px]" />
           </span>
           <div className="min-w-0">

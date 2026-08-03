@@ -12,6 +12,9 @@ const LoginPage = lazy(() =>
 const SignupPage = lazy(() =>
   import('@/features/auth/pages/SignupPage').then((m) => ({ default: m.SignupPage })),
 )
+const DashboardPage = lazy(() =>
+  import('@/features/dashboard/pages/DashboardPage').then((m) => ({ default: m.DashboardPage })),
+)
 const OrdersPage = lazy(() =>
   import('@/features/orders/pages/OrdersPage').then((m) => ({ default: m.OrdersPage })),
 )
@@ -55,7 +58,7 @@ const router = createBrowserRouter([
           {
             element: <AdminLayout />,
             children: [
-              { index: true, element: <Navigate to="/admin/orders" replace /> },
+              { index: true, element: <DashboardPage /> },
               {
                 path: 'orders',
                 children: [

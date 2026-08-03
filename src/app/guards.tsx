@@ -30,5 +30,5 @@ export function HomeRedirect() {
   if (isInitializing) return <PageLoader />
   if (!user) return <Navigate to="/login" replace />
   if (!profile) return <AccountUnavailable />
-  return <Navigate to={profile?.role === 'admin' ? '/admin/orders' : '/my-orders'} replace />
+  return <Navigate to={profile?.role === 'admin' ? '/admin' : '/my-orders'} replace />
 }

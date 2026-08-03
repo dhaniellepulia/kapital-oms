@@ -1,9 +1,10 @@
-import { Package, SlidersHorizontal, Users } from 'lucide-react'
+import { LayoutDashboard, Package, SlidersHorizontal, Users } from 'lucide-react'
 
 import { AppLayout } from '@/components/layout/AppLayout'
 import type { NavItem } from '@/components/layout/types'
 
 const adminNav: NavItem[] = [
+  { label: 'Dashboard', to: '/admin', icon: LayoutDashboard },
   { label: 'Orders', to: '/admin/orders', icon: Package },
   { label: 'Users', to: '/admin/users', icon: Users },
   { label: 'Settings', to: '/admin/settings', icon: SlidersHorizontal },

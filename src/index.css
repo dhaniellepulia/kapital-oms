@@ -103,6 +103,47 @@
   --warning-dot: #e2a12c;
 }
 
+.dark {
+  color-scheme: dark;
+  --background: #0f1115;
+  --foreground: #eef0f4;
+  --card: #171a1f;
+  --card-foreground: #eef0f4;
+  --popover: #1b1f25;
+  --popover-foreground: #eef0f4;
+  --primary: #4d74f5;
+  --primary-foreground: #ffffff;
+  --secondary: #1f232a;
+  --secondary-foreground: #eef0f4;
+  --muted: #1f232a;
+  --muted-foreground: #a2aab6;
+  --accent: #1c2b56;
+  --accent-foreground: #a9c2ff;
+  --destructive: #e57395;
+  --border: #262b34;
+  --input: #2e343e;
+  --ring: rgba(77, 116, 245, 0.35);
+  --sidebar: #14171c;
+  --sidebar-foreground: #eef0f4;
+  --sidebar-primary: #4d74f5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1b1f25;
+  --sidebar-accent-foreground: #eef0f4;
+  --sidebar-border: #262b34;
+  --sidebar-ring: rgba(77, 116, 245, 0.35);
+
+  /* Kapital extras */
+  --dim: #8f96a1;
+  --brand-strong: #7b9cff;
+  --brand-soft: #1c2b56;
+  --positive: #34d399;
+  --positive-soft: #12291d;
+  --positive-dot: #4ade80;
+  --warning: #f0b94f;
+  --warning-soft: #2b2310;
+  --warning-dot: #fbbf24;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
