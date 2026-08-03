@@ -1,3 +1,6 @@
+import { useState } from 'react'
+
+import { FilterTabs } from '@/components/shared/FilterTabs'
 import { ErrorBanner } from '@/components/shared/ErrorBanner'
 import { useAuth } from '@/features/auth/hooks/useAuth'
 import { computeInvestmentFigures } from '@/features/investments/api/investmentsService'
@@ -9,9 +12,12 @@ import { PayoutCard } from '../components/PayoutCard'
 const PAID_STATUSES = new Set(['paid', 'completed'])
 const UPCOMING_STATUSES = new Set(['open', 'allocated'])
 
+type PayoutView = 'paidout' | 'upcoming'
+
 export function PayoutsPage() {
   const { user } = useAuth()
   const { data: investorOrders = [], isLoading, isError, error } = useInvestorOrders(user?.uid)
+  const [view, setView] = useState<PayoutView>('paidout')
 
   const figures = investorOrders.map((io) => ({
     ...io,
@@ -27,6 +33,7 @@ export function PayoutsPage() {
 
   const paidOutOrders = investorOrders.filter((io) => PAID_STATUSES.has(io.order.status))
   const upcomingOrders = investorOrders.filter((io) => UPCOMING_STATUSES.has(io.order.status))
+  const shownOrders = view === 'paidout' ? paidOutOrders : upcomingOrders
 
   const stats = [
     { label: 'Total invested', value: formatPHP(totalInvested) },
@@ -68,23 +75,23 @@ export function PayoutsPage() {
             ))}
           </div>
 
-          <section className="flex flex-col gap-3">
-            <h2 className="font-heading text-sm font-semibold text-foreground">Paid out</h2>
-            {paidOutOrders.length === 0 ? (
-              <p className="text-xs text-muted-foreground">No paid-out allocations yet.</p>
-            ) : (
-              <PayoutGrid orders={paidOutOrders} />
-            )}
-          </section>
+          <FilterTabs
+            value={view}
+            onChange={setView}
+            placeholder="Filter by payout status"
+            options={[
+              { value: 'paidout', label: 'Paid out', count: paidOutOrders.length },
+              { value: 'upcoming', label: 'Upcoming', count: upcomingOrders.length },
+            ]}
+          />
 
-          <section className="flex flex-col gap-3">
-            <h2 className="font-heading text-sm font-semibold text-foreground">Upcoming</h2>
-            {upcomingOrders.length === 0 ? (
-              <p className="text-xs text-muted-foreground">No upcoming payouts yet.</p>
-            ) : (
-              <PayoutGrid orders={upcomingOrders} />
-            )}
-          </section>
+          {shownOrders.length === 0 ? (
+            <p className="text-xs text-muted-foreground">
+              {view === 'paidout' ? 'No paid-out allocations yet.' : 'No upcoming payouts yet.'}
+            </p>
+          ) : (
+            <PayoutGrid orders={shownOrders} />
+          )}
         </>
       )}
     </div>
