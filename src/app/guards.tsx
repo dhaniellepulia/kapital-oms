@@ -15,9 +15,9 @@ export function RequireAuth() {
 }
 
 export function RequireRole({ role }: { role: UserRole }) {
-  const { user, profile, isInitializing } = useAuth()
+  const { user, profile, isInitializing, isProfileLoading } = useAuth()
 
-  if (isInitializing) return <PageLoader />
+  if (isInitializing || isProfileLoading) return <PageLoader />
   if (!user) return <Navigate to="/login" replace />
   if (!profile) return <AccountUnavailable />
   if (profile.role !== role) return <Navigate to="/" replace />
@@ -25,9 +25,9 @@ export function RequireRole({ role }: { role: UserRole }) {
 }
 
 export function HomeRedirect() {
-  const { user, profile, isInitializing } = useAuth()
+  const { user, profile, isInitializing, isProfileLoading } = useAuth()
 
-  if (isInitializing) return <PageLoader />
+  if (isInitializing || isProfileLoading) return <PageLoader />
   if (!user) return <Navigate to="/login" replace />
   if (!profile) return <AccountUnavailable />
   return <Navigate to={profile?.role === 'admin' ? '/admin' : '/my-orders'} replace />

@@ -9,16 +9,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<AuthContextValue['profile']>(null)
   const [isInitializing, setIsInitializing] = useState(true)
+  const [isProfileLoading, setIsProfileLoading] = useState(false)
 
   useEffect(() => {
     const unsubscribe = subscribeToAuth((firebaseUser) => {
       setUser(firebaseUser)
       if (firebaseUser) {
+        setIsProfileLoading(true)
         void getUserProfile(firebaseUser.uid)
           .then(setProfile)
           .catch(() => setProfile(null))
+          .finally(() => setIsProfileLoading(false))
       } else {
         setProfile(null)
+        setIsProfileLoading(false)
       }
       setIsInitializing(false)
     })
@@ -28,7 +32,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = useCallback(async (email: string, password: string) => {
     const firebaseUser = await signInWithEmail(email, password)
     setUser(firebaseUser)
-    setProfile(await getUserProfile(firebaseUser.uid))
+    setIsProfileLoading(true)
+    try {
+      setProfile(await getUserProfile(firebaseUser.uid))
+    } finally {
+      setIsProfileLoading(false)
+    }
   }, [])
 
   const signUp = useCallback(async (name: string, email: string, password: string) => {
@@ -40,23 +49,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       throw error
     }
     setUser(firebaseUser)
-    setProfile(await getUserProfile(firebaseUser.uid))
+    setIsProfileLoading(true)
+    try {
+      setProfile(await getUserProfile(firebaseUser.uid))
+    } finally {
+      setIsProfileLoading(false)
+    }
   }, [])
 
   const signOut = useCallback(async () => {
     await signOutUser()
     setUser(null)
     setProfile(null)
+    setIsProfileLoading(false)
   }, [])
 
   const refreshProfile = useCallback(async () => {
     if (!user) return
-    setProfile(await getUserProfile(user.uid))
+    setIsProfileLoading(true)
+    try {
+      setProfile(await getUserProfile(user.uid))
+    } finally {
+      setIsProfileLoading(false)
+    }
   }, [user])
 
   const value = useMemo<AuthContextValue>(
-    () => ({ user, profile, isInitializing, signIn, signUp, signOut, refreshProfile }),
-    [user, profile, isInitializing, signIn, signUp, signOut, refreshProfile],
+    () => ({
+      user,
+      profile,
+      isInitializing,
+      isProfileLoading,
+      signIn,
+      signUp,
+      signOut,
+      refreshProfile,
+    }),
+    [user, profile, isInitializing, isProfileLoading, signIn, signUp, signOut, refreshProfile],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
