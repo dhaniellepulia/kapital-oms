@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Trash2Icon } from 'lucide-react'
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
+import { ProgressBar } from '@/components/shared/ProgressBar'
 import { UserAvatar } from '@/components/shared/UserAvatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -88,12 +89,7 @@ export function InvestorTable({ order, investments }: InvestorTableProps) {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
-                      <div className="h-[5px] w-20 overflow-hidden rounded-full bg-border">
-                        <div
-                          className="h-full rounded-full bg-primary"
-                          style={{ width: `${figures.ratio * 100}%` }}
-                        />
-                      </div>
+                      <ProgressBar value={figures.ratio} size="sm" className="w-20" />
                       <b className="min-w-11 text-right text-[12.5px] font-medium tabular-nums">
                         {formatPercent(figures.ratio)}
                       </b>
@@ -155,12 +151,7 @@ export function InvestorTable({ order, investments }: InvestorTableProps) {
                 <div>
                   <p className="text-[11px] text-muted-foreground">Investment %</p>
                   <div className="mt-1 flex items-center gap-2">
-                    <div className="h-[5px] w-14 overflow-hidden rounded-full bg-border">
-                      <div
-                        className="h-full rounded-full bg-primary"
-                        style={{ width: `${figures.ratio * 100}%` }}
-                      />
-                    </div>
+                    <ProgressBar value={figures.ratio} size="sm" className="w-14" />
                     <span className="text-[12px] font-medium tabular-nums">
                       {formatPercent(figures.ratio)}
                     </span>

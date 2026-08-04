@@ -16,12 +16,19 @@ export function InvestorLayout() {
   const { user } = useAuth()
   const { data: investorOrders } = useInvestorOrders(user?.uid)
 
+  const pendingCount = useMemo(
+    () =>
+      investorOrders?.filter((io) => io.order.status === 'open' || io.order.status === 'allocated')
+        .length ?? 0,
+    [investorOrders],
+  )
+
   const items: NavItem[] = useMemo(
     () =>
       investorNav.map((item) =>
-        item.to === '/my-orders' ? { ...item, count: investorOrders?.length } : item,
+        item.to === '/my-orders' ? { ...item, count: pendingCount } : item,
       ),
-    [investorOrders],
+    [pendingCount],
   )
 
   return (

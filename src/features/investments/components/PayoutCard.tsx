@@ -1,4 +1,4 @@
-import { WalletIcon } from 'lucide-react'
+import { PackageIcon } from 'lucide-react'
 
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { computeInvestmentFigures } from '@/features/investments/api/investmentsService'
@@ -18,7 +18,7 @@ export function PayoutCard({ payout }: PayoutCardProps) {
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-accent-foreground">
-            <WalletIcon className="size-[17px]" />
+            <PackageIcon className="size-[17px]" />
           </span>
           <div className="min-w-0">
             <p className="truncate text-[13px] font-medium text-foreground">{order.itemName}</p>

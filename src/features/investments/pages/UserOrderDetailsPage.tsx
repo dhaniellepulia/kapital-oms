@@ -2,6 +2,7 @@ import { ArrowLeftIcon } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 
 import { ErrorBanner } from '@/components/shared/ErrorBanner'
+import { ProgressBar } from '@/components/shared/ProgressBar'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useAuth } from '@/features/auth/hooks/useAuth'
@@ -176,12 +177,7 @@ export function UserOrderDetailsPage() {
             </div>
           </div>
 
-          <div className="my-2.5 h-[5px] overflow-hidden rounded-full bg-border">
-            <div
-              className="h-full rounded-full bg-primary"
-              style={{ width: `${Math.min(figures.ratio * 100, 100)}%` }}
-            />
-          </div>
+          <ProgressBar value={figures.ratio} className="my-2.5" />
 
           <div className="flex flex-col gap-1 rounded-xl border border-border bg-popover p-4">
             <span className="text-[11px] tracking-[0.03em] text-dim">Expected Return</span>

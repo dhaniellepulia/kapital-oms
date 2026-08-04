@@ -1,6 +1,7 @@
 import { ArrowUpRightIcon, PackageIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+import { ProgressBar } from '@/components/shared/ProgressBar'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { computeInvestmentFigures } from '@/features/investments/api/investmentsService'
 import type { Investment } from '@/features/investments/types'
@@ -49,12 +50,7 @@ export function InvestorOrderCard({ investment, order }: InvestorOrderCardProps)
         </div>
       </div>
 
-      <div className="h-[5px] overflow-hidden rounded-full bg-border">
-        <div
-          className="h-full rounded-full bg-primary"
-          style={{ width: `${Math.min(figures.ratio * 100, 100)}%` }}
-        />
-      </div>
+      <ProgressBar value={figures.ratio} />
 
       <div className="flex items-end justify-between gap-3 border-t border-border pt-3">
         <div>

@@ -10,6 +10,7 @@ import {
 
 import { ConfirmDialog } from '@/components/shared/ConfirmDialog'
 import { ErrorBanner } from '@/components/shared/ErrorBanner'
+import { ProgressBar } from '@/components/shared/ProgressBar'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { Button } from '@/components/ui/button'
 import {
@@ -109,7 +110,6 @@ export function OrderDetailsPage() {
   const totalInvested = investments.reduce((sum, inv) => sum + inv.investedCapital, 0)
   const totalCapital = order.capital * order.quantity
   const fundedRatio = totalCapital > 0 ? Math.min(totalInvested / totalCapital, 1) : 0
-  const fundedPct = fundedRatio * 100
   const expectedPayouts = investments.reduce(
     (sum, inv) => sum + computeInvestmentFigures(inv, order).expectedReturn,
     0,
@@ -234,9 +234,7 @@ export function OrderDetailsPage() {
             <span className="text-muted-foreground">Funded</span>
             <span className="font-medium tabular-nums">{formatPercent(fundedRatio)}</span>
           </div>
-          <div className="my-3 h-[5px] overflow-hidden rounded-full bg-border">
-            <div className="h-full rounded-full bg-primary" style={{ width: `${fundedPct}%` }} />
-          </div>
+          <ProgressBar value={fundedRatio} complete={fullyCovered} className="my-3" />
           <div className="flex items-baseline justify-between py-2 text-[12.5px]">
             <span className="text-muted-foreground">Est. payouts</span>
             <span className="font-medium tabular-nums">{formatPHP(expectedPayouts)}</span>

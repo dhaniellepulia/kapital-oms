@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ErrorBanner } from '@/components/shared/ErrorBanner'
+import { ProgressBar } from '@/components/shared/ProgressBar'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { UserAvatar } from '@/components/shared/UserAvatar'
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -180,16 +181,14 @@ function StatusRow({
   count: number
   orderCount: number
 }) {
-  const width = orderCount > 0 ? (count / orderCount) * 100 : 0
+  const ratio = orderCount > 0 ? count / orderCount : 0
   return (
     <div>
       <div className="flex items-center justify-between">
         <StatusBadge status={status} />
         <span className="text-xs font-medium tabular-nums">{count}</span>
       </div>
-      <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-        <span className="block h-full rounded-full bg-primary" style={{ width: `${width}%` }} />
-      </div>
+      <ProgressBar value={ratio} className="mt-2" />
     </div>
   )
 }
@@ -206,12 +205,7 @@ function FundingRow({ fund }: { fund: OrderFunding }) {
           {formatPHP(fund.invested)} of {formatPHP(fund.offered)}
         </p>
       </div>
-      <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-        <span
-          className="block h-full rounded-full bg-primary"
-          style={{ width: `${fund.ratio * 100}%` }}
-        />
-      </div>
+      <ProgressBar value={fund.ratio} complete={fund.ratio >= 1} className="mt-2" />
     </div>
   )
 }

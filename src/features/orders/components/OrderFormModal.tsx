@@ -238,7 +238,7 @@ export function OrderFormModal({ open, onOpenChange, order }: OrderFormModalProp
             <aside className="rounded-xl border bg-popover p-5">
               <div className="flex items-center justify-between gap-2">
                 <p className="font-heading text-sm font-semibold">Financial Summary</p>
-                <span className="rounded-full border bg-background px-2.5 py-0.5 text-[9px] font-medium tracking-[0.08em] text-muted-foreground uppercase">
+                <span className="shrink-0 rounded-full border bg-background px-2.5 py-0.5 text-[9px] font-medium tracking-[0.08em] text-muted-foreground uppercase whitespace-nowrap">
                   Auto-computed
                 </span>
               </div>
