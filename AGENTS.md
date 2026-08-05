@@ -10,8 +10,13 @@ React 19 + TypeScript 6.0 + Vite 8 + Tailwind CSS v4 + Oxlint.
 | `npm run build` | `tsc -b && vite build` — run before commit |
 | `npm run lint` | `oxlint` — run before commit |
 | `npm run preview` | Preview production build locally |
+| `npm run test` | Run unit/component tests (Vitest, once) |
+| `npm run test:watch` | Run Vitest in watch mode |
+| `npm run test:e2e` | Run Playwright E2E tests (auto-starts Vite dev server) |
 
-No test runner configured.
+## Deployment
+
+Push to `origin main` to trigger a Vercel auto-deploy. No manual build/deploy step.
 
 ## TypeScript quirks
 
@@ -25,14 +30,23 @@ No test runner configured.
 
 Uses `@import "tailwindcss"` syntax in `src/index.css`. No `tailwind.config.js` — v4 uses CSS-based config.
 
+Theme is token-driven with a `.dark` override block in `src/index.css`. Use `dark:` variants and tokens only — never hardcoded hex values.
+
 ## Linting
 
 Oxlint (not ESLint). Config in `.oxlintrc.json`. Enables `react`, `typescript`, `oxc` plugins with `react/rules-of-hooks` (error) and `react/only-export-components` (warn).
+
+## Testing notes
+
+- Unit/component tests live next to source (`*.test.ts`, `*.test.tsx`); E2E in `e2e/`.
+- No Firebase emulator or test account exists, so authenticated E2E is not possible — E2E covers public flows only. Protect client-side logic (schemas, stats, sorting) with unit tests instead.
 
 ## Skills (`.agents/skills/`)
 
 - `frontend-design` — UI/design direction skill (from anthropics/skills).
 - `grill-me` — design review/planning sharpening skill (from mattpocock/skills).
+- `vitest-skill` — Vitest + React Testing Library unit/component test patterns (from LambdaTest/agent-skills).
+- `playwright-best-practices` — Playwright E2E patterns (from currents-dev/playwright-best-practices-skill).
 
 Loaded via `skills-lock.json`. Use the `skill` tool to activate them when the task matches.
 
@@ -77,6 +91,7 @@ Loaded via `skills-lock.json`. Use the `skill` tool to activate them when the ta
 
 - default to small components. prefer focused modules over god components
 - default to small files and diffs. avoid repo wide rewrites unless asked
+- reuse shared components in `src/components/shared/` (StatusBadge, ProgressBar, SortControl, ConfirmDialog, ErrorBanner, PageLoader, FilterTabs, UserAvatar) instead of hand-rolling markup — e.g. always use `ProgressBar` for funding/progress bars, never inline bar divs
 
 ### Don't
 - do not hard code colors

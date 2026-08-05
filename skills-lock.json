@@ -12,6 +12,18 @@
       "sourceType": "github",
       "skillPath": "skills/productivity/grill-me/SKILL.md",
       "computedHash": "f361db4e15e6bfd562a9282b1dccda513910a50061f9e838ce017be9c69dde3f"
+    },
+    "playwright-best-practices": {
+      "source": "currents-dev/playwright-best-practices-skill",
+      "sourceType": "github",
+      "skillPath": "playwright-best-practices/SKILL.md",
+      "computedHash": "7eb144f734450fee649dc1d209114775ddda07cbf45be84fe969d3d4f3971dce"
+    },
+    "vitest-skill": {
+      "source": "LambdaTest/agent-skills",
+      "sourceType": "github",
+      "skillPath": "vitest-skill/SKILL.md",
+      "computedHash": "9cb1a9880a3d8763b93b8a83634ea31aca1d37ea1d8ca053e7b2c120f8594267"
     }
   }
 }
