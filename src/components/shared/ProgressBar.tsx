@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import { cn } from '@/lib/utils'
 
 interface ProgressBarProps {
@@ -9,8 +11,30 @@ interface ProgressBarProps {
   className?: string
 }
 
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+}
+
 export function ProgressBar({ value, size = 'md', complete = false, className }: ProgressBarProps) {
   const clamped = Math.max(0, Math.min(1, value))
+  const reduceMotion = prefersReducedMotion()
+  const [fill, setFill] = useState(reduceMotion ? clamped : 0)
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setFill(clamped)
+      return
+    }
+    let frame2: number | undefined
+    const frame1 = requestAnimationFrame(() => {
+      frame2 = requestAnimationFrame(() => setFill(clamped))
+    })
+    return () => {
+      cancelAnimationFrame(frame1)
+      if (frame2 !== undefined) cancelAnimationFrame(frame2)
+    }
+  }, [clamped, reduceMotion])
 
   return (
     <div
@@ -31,9 +55,9 @@ export function ProgressBar({ value, size = 'md', complete = false, className }:
             ? 'bg-gradient-to-r from-positive to-positive/60'
             : 'bg-gradient-to-r from-primary to-primary/60',
         )}
-        style={{ width: `${clamped * 100}%` }}
+        style={{ width: `${fill * 100}%` }}
       >
-        {clamped > 0 && !complete && (
+        {fill > 0 && !complete && (
           <span
             aria-hidden
             className={cn(
